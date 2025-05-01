@@ -1,0 +1,34 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Build output
+dist/
+build/
+.cache/
+.next/
+out/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Misc
+*.log
+*.zip
+*.bak
