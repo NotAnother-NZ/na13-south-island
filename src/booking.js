@@ -4,7 +4,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     console.log(
       "Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted):",
-      "2025-05-16 04:36:50", // Updated timestamp
+      "2025-06-05 04:00:23", // Updated timestamp
       "Current User's Login:",
       "Druhin13"
     );
@@ -134,6 +134,11 @@
         background-color: #ffffff;
         padding: 10px 1.25rem;
       }
+
+      /* --- Force cursor pointer for buttons --- */
+      .cta2, #generate-webjet {
+        cursor: pointer !important;
+      }
     `;
     document.head.appendChild(style);
 
@@ -149,15 +154,16 @@
 
     // Function to update the location wrapper height based on the date selector
     function updateLocationWrapperHeight() {
-      var dateElement = document.getElementById("select-dates");
+      // var dateElement = document.getElementById("select-dates");
       var locationWrapper = document.getElementById("location-wrapper");
 
-      if (dateElement && locationWrapper) {
-        var renderedHeight = dateElement.getBoundingClientRect().height;
-        locationWrapper.style.height = renderedHeight + "px";
+      if (/* dateElement && */ locationWrapper) {
+        // var renderedHeight = dateElement.getBoundingClientRect().height;
+        // locationWrapper.style.height = renderedHeight + "px";
         console.log(
-          "Updated location wrapper height to match date selector:",
-          renderedHeight + "px"
+          "Updated location wrapper height"
+          // "Updated location wrapper height to match date selector:",
+          // renderedHeight + "px"
         );
       }
     }
@@ -419,6 +425,8 @@
       });
     }
 
+    // DATE FUNCTIONALITY - COMMENTED OUT BUT PRESERVED FOR FUTURE USE
+    /*
     var dateSelect = document.querySelector(
       'select[data-dt-dropdown-type="calendar-range"]'
     );
@@ -502,14 +510,28 @@
         },
       });
     }
+    */
 
-    var dateInput = document.getElementById("select-dates");
+    // var dateInput = document.getElementById("select-dates");
     var bookButton = document.querySelector(".cta2");
     var generateWebjet = document.getElementById("generate-webjet");
 
     function updateButton() {
+      // Always set cursor to pointer - no requirements needed anymore
+      if (bookButton) {
+        bookButton.style.cursor = "pointer";
+        bookButton.style.setProperty("cursor", "pointer", "important");
+      }
+      if (generateWebjet) {
+        generateWebjet.style.cursor = "pointer";
+        generateWebjet.style.setProperty("cursor", "pointer", "important");
+      }
+
+      // ORIGINAL LOGIC - COMMENTED OUT BUT PRESERVED
+      /*
       var location = locationSelect ? locationSelect.value : "";
       var dates = dateInput ? dateInput.value : "";
+      
       if (location && dates) {
         if (bookButton) bookButton.style.cursor = "pointer";
         if (generateWebjet) generateWebjet.style.cursor = "pointer";
@@ -517,11 +539,14 @@
         if (bookButton) bookButton.style.cursor = "not-allowed";
         if (generateWebjet) generateWebjet.style.cursor = "not-allowed";
       }
+      */
     }
 
-    if (dateInput) dateInput.addEventListener("change", updateButton);
+    // if (dateInput) dateInput.addEventListener("change", updateButton);
     updateButton();
 
+    // WEBJET GENERATION - COMMENTED OUT DUE TO DATE DEPENDENCY
+    /*
     if (generateWebjet) {
       generateWebjet.addEventListener("click", function (e) {
         e.preventDefault();
@@ -569,5 +594,6 @@
         window.open(finalUrl, "_blank");
       });
     }
+    */
   });
 })();
