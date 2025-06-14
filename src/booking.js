@@ -545,24 +545,32 @@
     // if (dateInput) dateInput.addEventListener("change", updateButton);
     updateButton();
 
-    // WEBJET GENERATION - COMMENTED OUT DUE TO DATE DEPENDENCY
-    /*
+    // WEBJET GENERATION - Updated for one-way trips with today's date
     if (generateWebjet) {
       generateWebjet.addEventListener("click", function (e) {
         e.preventDefault();
-        if (!locationSelect || !dateInput) return;
-        var location = locationSelect.value.trim();
-        var dates = dateInput.value.trim();
-        var hiddenDateInput = document.getElementById(dateInput.id + "-hidden");
-        var formattedDates = hiddenDateInput
-          ? hiddenDateInput.value.trim()
-          : dates;
 
-        if (!location || !formattedDates) return;
+        if (!locationSelect) {
+          console.error("Location select not found");
+          return;
+        }
+
+        var location = locationSelect.value.trim();
+
+        if (!location) {
+          console.warn("No location selected");
+          return;
+        }
+
         var parts = location.split("-to-");
-        if (parts.length !== 2) return;
+        if (parts.length !== 2) {
+          console.error("Invalid location format:", location);
+          return;
+        }
+
         var from = parts[0].toLowerCase();
         var to = "chc";
+
         var cityMap = {
           syd: "sydney",
           bne: "brisbane",
@@ -571,29 +579,31 @@
           cns: "cairns",
           chc: "christchurch",
         };
-        var dateParts = formattedDates.split(" - ");
-        if (dateParts.length < 1) return;
 
-        function formatDateForURL(dateStr) {
-          var parts = dateStr.split("/");
-          return `20${parts[2]}${parts[1]}${parts[0]}`;
+        // Get today's date in YYYYMMDD format
+        function getTodaysDateForURL() {
+          var today = new Date();
+          var year = today.getFullYear();
+          var month = (today.getMonth() + 1).toString().padStart(2, "0");
+          var day = today.getDate().toString().padStart(2, "0");
+          return year + month + day;
         }
-        var departDate = formatDateForURL(dateParts[0]);
-        var returnDate = dateParts[1] ? formatDateForURL(dateParts[1]) : "";
-        var isReturn = !!returnDate;
+
+        var departDate = getTodaysDateForURL();
+
         var baseURL = "https://services.webjet.com.au/web/flights/redirect";
         var query = "?adults=1";
-        query += "&triptype=" + (isReturn ? "return" : "oneway");
+        query += "&triptype=oneway";
         query += "&countryfrom=australia&countryto=new+zealand";
+
         var steps = `${from}-${to}-${departDate}-economy-${cityMap[from]}-${cityMap[to]}`;
-        if (isReturn) {
-          steps += `_${to}-${from}-${returnDate}-economy-${cityMap[to]}-${cityMap[from]}`;
-        }
         query += "&steps=" + steps;
+
         var finalUrl = baseURL + query;
+
+        console.log("Generated Webjet URL:", finalUrl);
         window.open(finalUrl, "_blank");
       });
     }
-    */
   });
 })();
