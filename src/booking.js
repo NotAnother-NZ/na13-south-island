@@ -4,7 +4,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     console.log(
       "Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted):",
-      "2025-06-05 04:00:23", // Updated timestamp
+      "2025-06-12 04:00:23", // Updated timestamp
       "Current User's Login:",
       "Druhin13"
     );
